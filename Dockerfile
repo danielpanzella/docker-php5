@@ -21,8 +21,7 @@ RUN apk --no-cache add \
     rm /var/www/localhost/htdocs/*
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
-
-RUN mkdir /run/apache2
+RUN mkdir -p /run/apache2 && ln -s /dev/stdout /var/log/apache2/access.log && ln -s /dev/stderr /var/log/apache2/error.log 
 COPY httpd-foreground /usr/local/bin/
 
 EXPOSE 80
